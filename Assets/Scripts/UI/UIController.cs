@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class UIController : MonoBehaviour
@@ -9,11 +10,15 @@ public class UIController : MonoBehaviour
     {
         if (!_isOpened)
         {
-            buildingsPanel.offsetMax = new Vector2(0, 70);
+//            buildingsPanel.offsetMax = new Vector2(0, 70);
+            buildingsPanel.DOLocalMoveY(45f, 0.3f)
+                .SetEase(Ease.OutSine);
         }
         else
         {
-            buildingsPanel.offsetMax = new Vector2(0, 0);
+  //          buildingsPanel.offsetMax = new Vector2(0, 0);
+              buildingsPanel.DOLocalMoveY(-40f, 0.3f)
+                  .SetEase(Ease.InSine);
         }
 
         _isOpened = !_isOpened;
@@ -21,7 +26,9 @@ public class UIController : MonoBehaviour
     
     public void OnDeleteButtonClicked()
     {
-        buildingsPanel.offsetMax = new Vector2(0, 0);
+//        buildingsPanel.offsetMax = new Vector2(0, 0);
+        buildingsPanel.DOLocalMoveY(-40f, 0.3f)
+            .SetEase(Ease.OutSine);
         _isOpened = false;
     }
 }
