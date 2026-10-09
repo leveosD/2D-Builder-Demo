@@ -1,14 +1,37 @@
-Bootstrap загружает основную сцену с игровым полем и интерфейсом.
-Скрипты разделены на 2 Assembly Definition: UIModule и TileModule.
-В первом содержаться скрипты, которые отвечают за обработку нажатий на кнопки, а также отрисовку кнопок в соответствии зданиям, которые сохранены в проекте.
+# Builder
 
-Во втором находится вся логика, связанная с размещением и удалением зданий.
-От интерфейса IPlayMode, который требует наличия методов Submit и Cancel.
-Эти методы вызываются в InputHandler при нажатии на ЛКМ и ПКМ соответственно.
+A Unity project focused on modular architecture and grid-based building placement. The project demonstrates separation of UI and gameplay logic, extensible interaction modes, and JSON-based building data serialization.
 
-То есть все наследники IPlayMode могут быть использованы для взаимодействия игрока с полем.
-В проекте уже находятся классы PlaceMode и DeleteMode. Аналогично может быть добавлен класс например для перемещения уже поставленного здания.
+## Architecture
 
-В папке Resources находятся JSON-файлы с именем и размером здания.
-При сохранении в отдельный JSON помещается список из координат левого верхнего угла здания, а также его названия.
+The scripts are organized into two Assembly Definition modules:
 
+* **UIModule** — handles UI button interactions and renders building selection buttons based on the buildings available in the project.
+* **TileModule** — contains the logic for placing and removing buildings on the game field.
+
+A **Bootstrap** component loads the main scene containing the game field and user interface.
+
+## Gameplay Systems
+
+### Interaction Modes
+
+The `IPlayMode` interface defines two methods: `Submit` and `Cancel`. `InputHandler` invokes them when the player presses the left and right mouse buttons, respectively.
+
+This design allows interaction modes to be extended independently of the input system. The project currently implements:
+
+* `PlaceMode` — places buildings on the grid.
+* `DeleteMode` — removes existing buildings.
+
+Additional modes, such as moving an already placed building, can be implemented by adding new `IPlayMode` implementations.
+
+## Data Storage
+
+Building definitions are stored as JSON files in the `Resources` directory. Each definition contains the building's name and dimensions.
+
+Saved layouts are serialized into a separate JSON file containing the names of placed buildings and the coordinates of their top-left corners.
+
+## Technologies
+
+* **Unity Tilemaps**
+* **Assembly Definition Files** — modular code organization
+* **DOTween**
